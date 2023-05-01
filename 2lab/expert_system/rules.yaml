@@ -1,0 +1,610 @@
+- rule: dogs-hair-length
+  question: 'Long-hair or short-hair breed?'
+  priority: 0
+  value:
+    - 'short'
+    - 'long'
+  condition:
+    operation: '&'
+    facts:
+      - name: breed
+        value: ''
+      - name: hair
+        value: ''
+  assertFact:
+    name: hair
+    value: ''
+
+- rule: dogs-height-50
+  question: 'Dog''s height less 50 centimeters or more?'
+  priority: 0
+  value:
+    - 'less'
+    - 'more'
+  condition:
+    operation: '&'
+    facts:
+      - name: breed
+        value: ''
+      - name: height_50
+        value: ''
+  assertFact:
+    name: height_50
+    value: ''
+
+- rule: dogs-height-70
+  question: 'Dog''s height less 70 centimeters or more?'
+  priority: 0
+  value:
+    - 'less'
+    - 'more'
+  condition:
+    operation: '&'
+    facts:
+      - name: breed
+        value: ''
+      - name: hair
+        value: long
+      - name: height_50
+        value: more
+  assertFact:
+    name: height_70
+    value: ''
+
+- rule: dogs-tail
+  question: "Dog's tail short or long?"
+  priority: 0
+  value:
+    - 'short'
+    - 'long'
+  condition:
+    operation: '&'
+    facts:
+      - name: breed
+        value: ''
+      - name: hair
+        value: short
+      - name: height_50
+        value: less
+  assertFact:
+    name: tail
+    value: ''
+
+- rule: weight-50-kg
+  question: "Dog's weight less 50 kg or more?"
+  priority: 0
+  value:
+    - 'less'
+    - 'more'
+  condition:
+    operation: '&'
+    facts:
+      - name: breed
+        value: ''
+      - name: hair
+        value: 'short'
+      - name: height_50
+        value: 'more'
+  assertFact:
+    name: weight_50
+    value: ''
+
+- rule: dogs-ears
+  question: "Dog's ears short or long?"
+  priority: 0
+  value:
+    - 'short'
+    - 'long'
+  condition:
+    operation: '&'
+    facts:
+      - name: breed
+        value: ''
+      - operation: '||'
+        facts:
+          - name: height_50
+            value: more
+          - name: height_50
+            value: less
+      - operation: '||'
+        facts:
+        - name: tail
+          value: long
+        - name: hair
+          value: short
+  assertFact:
+      name: ears
+      value: ''
+
+- rule: weight-30-kg
+  question: "Dog's weight less 30 kg or more?"
+  priority: 1
+  value:
+    - 'less'
+    - 'more'
+  condition:
+    operation: '&'
+    facts:
+      - name: breed
+        value: ''
+      - name: hair
+        value: 'long'
+      - name: height_50
+        value: 'more'
+      - name: height_70
+        value: 'less'
+      - name: ears
+        value: 'short'
+  assertFact:
+    name: weight_30
+    value: ''
+
+
+- rule: char-color
+  question: "Is the dog uniform or mixed color?"
+  priority: 0
+  value:
+    - 'self'
+    - 'mixed'
+  condition:
+    operation: '&'
+    facts:
+      - name: breed
+        value: ''
+      - name: hair
+        value: 'long'
+      - name: height_50
+        value: 'more'
+      - name: height_70
+        value: 'more'
+  assertFact:
+    name: char_color
+    value: ''
+
+- rule: tone-color
+  question: "The dog has a tone color bright or dark ?"
+  priority: 0
+  value:
+    - 'bright'
+    - 'dark'
+  condition:
+    operation: '&'
+    facts:
+      - name: breed
+        value: ''
+      - name: hair
+        value: 'long'
+      - name: height_50
+        value: 'more'
+      - operation: '||'
+        facts:
+          - name: height_70
+            value: 'less'
+          - name: height_70
+            value: 'more'
+      - operation: '||'
+        facts:
+          - name: ears
+            value: 'long'
+          - name: char_color
+            value: 'self'
+  assertFact:
+    name: tone_color
+    value: ''
+
+
+
+- rule: body-length
+  question: "The body long or short?"
+  priority: 0
+  value:
+    - 'short'
+    - 'long'
+  condition:
+    operation: '&'
+    facts:
+      - name: breed
+        value: ''
+      - name: hair
+        value: 'short'
+      - name: height_50
+        value: 'less'
+      - name: tail
+        value: 'long'
+      - name: ears
+        value: 'short'
+  assertFact:
+    name: body_length
+    value: ''
+
+- rule: dogs-character-friendly
+  question: "Is the dog's character friendly?"
+  priority: 0
+  value:
+    - 'yes'
+    - 'no'
+  condition:
+    operation: '&'
+    facts:
+      - name: breed
+        value: ''
+      - name: hair
+        value: 'long'
+      - name: height_50
+        value: 'less'
+      - operation: '||'
+        facts:
+          - name: ears
+            value: 'long'
+          - name: ears
+            value: 'short'
+  assertFact:
+    name: friendly
+    value: ''
+
+- rule: Bulldog
+  question: ""
+  priority: 0
+  value: []
+  condition:
+    operation: '&'
+    facts:
+      - name: breed
+        value: ''
+      - name: hair
+        value: 'short'
+      - name: height_50
+        value: 'less'
+      - name: tail
+        value: 'short'
+  assertFact:
+    name: breed
+    value: "name: Bulldog, type: short-haired breed, character: friendly, obedient"
+
+- rule: Hound
+  question: ""
+  priority: 0
+  value: []
+  condition:
+    operation: '&'
+    facts:
+      - name: breed
+        value: ''
+      - name: hair
+        value: 'short'
+      - name: height_50
+        value: 'less'
+      - name: tail
+        value: 'long'
+      - name: ears
+        value: 'long'
+  assertFact:
+    name: breed
+    value: "name: Hound, type: short-haired breed, character: calm, friendly"
+
+- rule: Pug
+  question: ""
+  priority: 0
+  value: []
+  condition:
+    operation: '&'
+    facts:
+      - name: breed
+        value: ''
+      - name: hair
+        value: 'short'
+      - name: height_50
+        value: 'less'
+      - name: tail
+        value: 'long'
+      - name: ears
+        value: 'short'
+      - name: body_length
+        value: 'short'
+  assertFact:
+    name: breed
+    value: "name: Pug, type: short-haired breed, character:smart, obedient"
+
+- rule: Chihuahua
+  question: ""
+  priority: 0
+  value: []
+  condition:
+    operation: '&'
+    facts:
+      - name: breed
+        value: ''
+      - name: hair
+        value: 'short'
+      - name: height_50
+        value: 'less'
+      - name: tail
+        value: 'long'
+      - name: ears
+        value: 'short'
+      - name: body_length
+        value: 'long'
+  assertFact:
+    name: breed
+    value: "name: Chihuahua, type: short-haired breed, character: bold, active"
+
+- rule: Great-Dane
+  question: ""
+  priority: 0
+  value: [ ]
+  condition:
+    operation: '&'
+    facts:
+      - name: breed
+        value: ''
+      - name: hair
+        value: 'short'
+      - name: height_50
+        value: 'more'
+      - name: weight_50
+        value: 'more'
+  assertFact:
+    name: breed
+    value: "name: Great_Dane, type: short-haired breed, character: friendly, easily trained"
+
+- rule: Foxhound
+  question: ""
+  priority: 0
+  value: [ ]
+  condition:
+    operation: '&'
+    facts:
+      - name: breed
+        value: ''
+      - name: hair
+        value: 'short'
+      - name: height_50
+        value: 'more'
+      - name: weight_50
+        value: 'less'
+  assertFact:
+    name: breed
+    value: "name: Foxhound, type: short-haired breed, character: active, friendly"
+
+- rule: Cocker-Spaniel
+  question: ""
+  priority: 0
+  value: [ ]
+  condition:
+    operation: '&'
+    facts:
+      - name: breed
+        value: ''
+      - name: hair
+        value: 'long'
+      - name: height_50
+        value: 'less'
+      - name: ears
+        value: 'long'
+      - name: friendly
+        value: 'yes'
+  assertFact:
+    name: breed
+    value: "name: Foxhound, type: short-haired breed, character: active, friendly"
+
+- rule: Dachshund
+  question: ""
+  priority: 0
+  value: [ ]
+  condition:
+    operation: '&'
+    facts:
+      - name: breed
+        value: ''
+      - name: hair
+        value: 'long'
+      - name: height_50
+        value: 'less'
+      - name: ears
+        value: 'long'
+      - name: friendly
+        value: 'no'
+  assertFact:
+    name: breed
+    value: "name: Dachshund, type: long-haired breed, character: bold, stubborn"
+
+- rule: Yorkshire-Terrier
+  question: ""
+  priority: 0
+  value: [ ]
+  condition:
+    operation: '&'
+    facts:
+      - name: breed
+        value: ''
+      - name: hair
+        value: 'long'
+      - name: height_50
+        value: 'less'
+      - name: ears
+        value: 'short'
+      - name: friendly
+        value: 'yes'
+  assertFact:
+    name: breed
+    value: "name: Yorkshire-Terrier, type: long-haired breed, character: Friendly"
+
+- rule: Chow-Chow
+  question: ""
+  priority: 0
+  value: [ ]
+  condition:
+    operation: '&'
+    facts:
+      - name: breed
+        value: ''
+      - name: hair
+        value: 'long'
+      - name: height_50
+        value: 'less'
+      - name: ears
+        value: 'short'
+      - name: friendly
+        value: 'no'
+  assertFact:
+    name: breed
+    value: "name: Chow-Chow, type: long-haired breed, character: unfriendly, devotee"
+
+- rule: Grand-Basset-Griffon-Vendeeng
+  question: ""
+  priority: 0
+  value: [ ]
+  condition:
+    operation: '&'
+    facts:
+      - name: breed
+        value: ''
+      - name: hair
+        value: 'long'
+      - name: height_50
+        value: 'more'
+      - name: height_70
+        value: 'less'
+      - name: ears
+        value: 'long'
+      - name: tone_color
+        value: 'bright'
+  assertFact:
+    name: breed
+    value: "name: Grand Basset Griffon Vendeeng, type: long-haired breed, character: active, friendly"
+
+- rule: Irish-Setter
+  question: ""
+  priority: 0
+  value: [ ]
+  condition:
+    operation: '&'
+    facts:
+      - name: breed
+        value: ''
+      - name: hair
+        value: 'long'
+      - name: height_50
+        value: 'more'
+      - name: height_70
+        value: 'less'
+      - name: ears
+        value: 'long'
+      - name: tone_color
+        value: 'dark'
+  assertFact:
+    name: breed
+    value: "name: Irish_Setter, type: long-haired breed, character: energetic, independent"
+
+- rule: Collie
+  question: ""
+  priority: 0
+  value: [ ]
+  condition:
+    operation: '&'
+    facts:
+      - name: breed
+        value: ''
+      - name: hair
+        value: 'long'
+      - name: height_50
+        value: 'more'
+      - name: height_70
+        value: 'less'
+      - name: ears
+        value: 'short'
+      - name: weight_30
+        value: 'less'
+  assertFact:
+    name: breed
+    value: "name: Collie, type: long-haired breed, character: smart, active"
+
+- rule: Caucasian-Shepherd-Dog
+  question: ""
+  priority: 0
+  value: [ ]
+  condition:
+    operation: '&'
+    facts:
+      - name: breed
+        value: ''
+      - name: hair
+        value: 'long'
+      - name: height_50
+        value: 'more'
+      - name: height_70
+        value: 'less'
+      - name: ears
+        value: 'short'
+      - name: weight_30
+        value: 'more'
+  assertFact:
+    name: breed
+    value: "name: Caucasian Shepherd Dog, type: long-haired breed, character: intolerant, vigilant"
+
+- rule: Irish-Wolfhound
+  question: ""
+  priority: 0
+  value: [ ]
+  condition:
+    operation: '&'
+    facts:
+      - name: breed
+        value: ''
+      - name: hair
+        value: 'long'
+      - name: height_50
+        value: 'more'
+      - name: height_70
+        value: 'more'
+      - name: char_color
+        value: 'self'
+      - name: tone_color
+        value: 'bright'
+  assertFact:
+    name: breed
+    value: "name: Irish_Wolfhound, type: long-haired breed, character: kind, energetic"
+
+- rule: Newfoundland
+  question: ""
+  priority: 0
+  value: [ ]
+  condition:
+    operation: '&'
+    facts:
+      - name: breed
+        value: ''
+      - name: hair
+        value: 'long'
+      - name: height_50
+        value: 'more'
+      - name: height_70
+        value: 'more'
+      - name: char_color
+        value: 'self'
+      - name: tone_color
+        value: 'dark'
+  assertFact:
+    name: breed
+    value: "name: Newfoundland, type: long-haired breed, character: friendly, easily trained"
+
+- rule: Saint-Bernard
+  question: ""
+  priority: 0
+  value: [ ]
+  condition:
+    operation: '&'
+    facts:
+      - name: breed
+        value: ''
+      - name: hair
+        value: 'long'
+      - name: height_50
+        value: 'more'
+      - name: height_70
+        value: 'more'
+      - name: char_color
+        value: 'mixed'
+  assertFact:
+    name: breed
+    value: "name: Saint Bernard, type: long-haired breed, character: friendly, calm"
